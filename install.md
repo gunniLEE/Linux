@@ -1,0 +1,235 @@
+[ec2-user@ip-172-31-5-161 ~]$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+[ec2-user@ip-172-31-5-161 ~]$ cd .nvm/
+[ec2-user@ip-172-31-5-161 .nvm]$ ls
+bash_completion  nvm-exec  nvm.sh
+[ec2-user@ip-172-31-5-161 .nvm]$ vi nvm.sh
+[ec2-user@ip-172-31-5-161 .nvm]$ . ~/.nvm/nvm.sh
+[ec2-user@ip-172-31-5-161 .nvm]$ nvm install 10.13.0
+[ec2-user@ip-172-31-5-161 .nvm]$ node -v
+v10.13.0
+[ec2-user@ip-172-31-5-161 .nvm]$ node -e "console.log('Running Node.js Version check: ' + process.version)"
+Running Node.js Version check: v10.13.0
+[ec2-user@ip-172-31-5-161 .nvm]$ sudo yum -y install curl-devel expat-devel gettext-devel openssl-devel zlib-devel
+
+
+[ec2-user@ip-172-31-5-161 ~]$ git clone https://github.com/brayanlee/aws-nginx-lab1.git
+[ec2-user@ip-172-31-5-161 aws-nginx-lab1]$ cd /var/
+[ec2-user@ip-172-31-5-161 var]$ cd www/
+
+[ec2-user@ip-172-31-5-161 www]$ sudo wget http://s3.amazonaws.com/phusion-passenger/releases/passenger-5.3.6.tar.gz
+
+
+[ec2-user@ip-172-31-5-161 www]$ ls
+cgi-bin  html  passenger-5.3.6.tar.gz
+[ec2-user@ip-172-31-5-161 www]$ cd ..
+[ec2-user@ip-172-31-5-161 var]$ sudo mkdir /var/passenger
+[ec2-user@ip-172-31-5-161 var]$ sudo chown -R ec2-user /var/passenger/
+[ec2-user@ip-172-31-5-161 var]$
+
+[ec2-user@ip-172-31-5-161 www]$ tar xvzf passenger-5.3.6.tar.gz -C /var/passenger/
+
+# gpg = GNU Package Guard
+
+[ec2-user@ip-172-31-5-161 yum.repos.d]$ gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+
+[ec2-user@ip-172-31-5-161 ~]$ curl -sSL https://get.rvm.io | bash -s stable
+
+[ec2-user@ip-172-31-5-161 ~]$ source ~/.rvm/scripts/rvm
+
+[ec2-user@ip-172-31-5-161 ~]$ rvm reload
+RVM reloaded!
+
+[ec2-user@ip-172-31-5-161 ~]$ rvm requirements run
+
+[ec2-user@ip-172-31-5-161 bin]$ echo export PATH=/var/passenger/passenger-5.3.6/bin:$PATH >> ~/.bash_profile
+[ec2-user@ip-172-31-5-161 ~]$ source ~/.bash_profile
+
+[ec2-user@ip-172-31-5-161 ~]$ echo $PATH
+/var/passenger/passenger-5.3.6/bin:/home/ec2-user/.nvm/versions/node/v10.13.0/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/ec2-user/.local/bin:/home/ec2-user/bin:/home/ec2-user/.rvm/bin
+
+[ec2-user@ip-172-31-5-161 ~]$ passenger-install-nginx-module
+
+Welcome to the Phusion Passenger Nginx module installer, v5.3.6.
+
+This installer will guide you through the entire installation process. It
+shouldn't take more than 5 minutes in total.
+
+Here's what you can expect from the installation process:
+
+ 1. This installer will compile and install Nginx with Passenger support.
+ 2. You'll learn how to configure Passenger in Nginx.
+ 3. You'll learn how to deploy a Ruby on Rails application.
+
+Don't worry if anything goes wrong. This installer will advise you on how to
+solve any problems.
+
+Press Enter to continue, or Ctrl-C to abort.
+
+
+--------------------------------------------
+
+Which languages are you interested in?
+
+Use <space> to select.
+If the menu doesn't display correctly, press '!'
+
+ ‣ ⬡  Ruby
+   ⬡ Python
+   ⬢  Node.js
+   ⬡  Meteor
+
+[ec2-user@ip-172-31-5-161 ~]$ rvm install 2.4.3
+
+
+Automatically download and install Nginx?
+
+Nginx doesn't support loadable modules such as some other web servers do,
+so in order to install Nginx with Passenger support, it must be recompiled.
+
+Do you want this installer to download, compile and install Nginx for you?
+
+ 1. Yes: download, compile and install Nginx for me. (recommended)
+    The easiest way to get started. A stock Nginx 1.14.0 with Passenger
+    support, but with no other additional third party modules, will be
+    installed for you to a directory of your choice.
+
+ 2. No: I want to customize my Nginx installation. (for advanced users)
+    Choose this if you want to compile Nginx with more third party modules
+    besides Passenger, or if you need to pass additional options to Nginx's
+    'configure' script. This installer will  1) ask you for the location of
+    the Nginx source code,  2) run the 'configure' script according to your
+    instructions, and  3) run 'make install'.
+
+Whichever you choose, if you already have an existing Nginx configuration file,
+then it will be preserved.
+
+Enter your choice (1 or 2) or press Ctrl-C to abort:
+
+
+#swap : 가상메모리 , 메모리 부족 현상을 대비 -> disk or file
+
+[ec2-user@ip-172-31-5-161 ~]$ sudo dd if=/dev/zero of=/swap bs=1M count=1024
+dd =임시파일 생성
+if(input file)
+of(output file)
+
+[ec2-user@ip-172-31-5-161 ~]$ sudo mkswap /swap
+mkswap: /swap: insecure permissions 0644, 0600 suggested.
+Setting up swapspace version 1, size = 1024 MiB (1073737728 bytes)
+no label, UUID=ce074c60-4535-447d-b521-2392e992f9af
+
+[ec2-user@ip-172-31-5-161 ~]$ sudo swapon /swap
+
+[ec2-user@ip-172-31-5-161 ~]$ swapon -s
+/swap                                   file            1048572 0       -2
+
+
+[ec2-user@ip-172-31-5-161 ~]$  export ORIG_PATH="$PATH"
+[ec2-user@ip-172-31-5-161 ~]$ rvmsudo -E /bin/bash
+[root@ip-172-31-5-161 ec2-user]# export PATH="$ORIG__PATH"
+[root@ip-172-31-5-161 ec2-user]# export rvmsudo_secure_path=1
+
+[root@ip-172-31-5-161 ec2-user]# /home/ec2-user/.rvm/gems/ruby-2.4.3/wrappers/ruby /var/passenger/passenger-5.3.6/bin/passenger-install-nginx-module
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+[ec2-user@ip-172-31-5-161 ~]$ sudo vi /opt/nginx/conf/nginx.conf
+
+http {
+     18     server_names_hash_bucket_size 256;
+     19     passenger_root /var/passenger/passenger-5.3.6;
+     20     passenger_ruby /home/ec2-user/.rvm/gems/ruby-2.4.3/wrappers/ruby;
+
+     39     server {
+     40         listen       80;
+     41         server_name  3.36.111.177;
+     42         root /var/www/aws-nginx-lab1/public;
+     43         passenger_enabled on;
+     44         passenger_app_type node;
+     45         passenger_startup_file /var/www/aws-nginx-lab1/app.js;
+
+
+[ec2-user@ip-172-31-5-161 ~]$ sudo /opt/nginx/sbin/nginx
+
+[ec2-user@ip-172-31-5-161 ~]$ ps -ef | grep nginx
+root     27141     1  0 07:19 ?        00:00:00 nginx: master process /opt/nginx/sbin/nginx
+nobody   27142 27141  0 07:19 ?        00:00:00 nginx: worker process
+ec2-user 27155  3603  0 07:20 pts/0    00:00:00 grep --color=auto nginx
+[ec2-user@ip-172-31-5-161 ~]$ cd /var/www/
+
+[ec2-user@ip-172-31-5-161 www]$ ll
+
+[ec2-user@ip-172-31-5-161 www]$ chown -R ec2-user aws-nginx-lab1
+
+[ec2-user@ip-172-31-5-161 www]$ cd aws-nginx-lab1/
+
+[ec2-user@ip-172-31-5-161 aws-nginx-lab1]$ sudo chown -R ec2-user /var/www/aws-nginx-lab1
+[ec2-user@ip-172-31-5-161 aws-nginx-lab1]$ npm install
+added 50 packages from 47 contributors and audited 50 packages in 1.979s
+found 0 vulnerabilities
+
+[ec2-user@ip-172-31-5-161 ~]$ sudo vi /opt/nginx//conf/nginx.conf		#server 추가
+[ec2-user@ip-172-31-5-161 ~]$ sudo cp -r aws-nginx-lab1 aws-nginx-lab2
+
+[ec2-user@ip-172-31-5-161 ~]$ ll
+total 0
+drwxrwxr-x 4 ec2-user ec2-user 124 Feb  1 05:20 aws-nginx-lab1
+drwxr-xr-x 4 root     root     124 Feb  1 08:14 aws-nginx-lab2
+
+[ec2-user@ip-172-31-5-161 ~]$ sudo chown -R ec2-user aws-nginx-lab2
+[ec2-user@ip-172-31-5-161 ~]$ cd aws-nginx-lab2/
+[ec2-user@ip-172-31-5-161 aws-nginx-lab2]$ vi app.js
+
+
+app.get('/', (req, res) => {
+  res.status(200).send('Welcome to AWS nginx web-server second(using public DNS)project!);
+} ) ;
+
+[ec2-user@ip-172-31-5-161 aws-nginx-lab2]$ ps -ef | grep nginx 
+root     27141     1  0 07:19 ?        00:00:00 nginx: master process /opt/nginx/sbin/nginx
+nobody   27142 27141  0 07:19 ?        00:00:00 nginx: worker process
+ec2-user 27610 27132  0 07:39 ?        00:00:00 Passenger NodeApp: /var/www/aws-nginx-lab1
+ec2-user 29157  3603  0 08:20 pts/0    00:00:00 grep --color=auto nginx
+
+[ec2-user@ip-172-31-5-161 aws-nginx-lab2]$ sudo kill -9 27141 27142 	# ps 를 통해  nginx master / w
+[ec2-user@ip-172-31-5-161 aws-nginx-lab2]$ sudo /opt/nginx/sbin/nginx
+[ec2-user@ip-172-31-5-161 aws-nginx-lab2]$ npm install
+audited 50 packages in 1.442s
+found 0 vulnerabilities
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+# utoscailing 작업 후 자동 nginx 구동을 위한 스크립트 작업 
+
+sudo vi /etc/rc.d/init.d/nginx
+#!/bin/sh
+#
+# nginx - this script starts and stops the nginx daemin
+#
+# chkconfig:   - 85 15
+# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \
+#               proxy and IMAP/POP3 proxy server
+# processname: nginx
+# config:      /opt/nginx/conf/nginx.conf
+# pidfile:     /opt/nginx/logs/nginx.pid
+# modified from http://articles.slicehost.com/2009/2/2/centos-adding-an-nginx-init-script
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ "$NETWORKING" = "no" ] && exit 0
+
+nginx="/opt/nginx/sbin/nginx"
+prog=$(basename $nginx)
+
+sudo chmod 777 nginx
+sudo /sbin/chkconfig nginx on
+sudo /sbin/chkconfig --list
+sudo systemctl status nginx.service
+sudo systemctl enable nginx.service
+
+
+
